@@ -108,7 +108,6 @@ class _MyLoginState extends State<MyLogin> {
                   // Add button
                   TextButton(
                       onPressed: () async {
-                        // Get the email and password from the text fields
                         String user = usernameController.text.trim();
                         String pass = passwordController.text.trim();
                         String apiUrl = "https://r9n3k67qqg.execute-api.ap-south-1.amazonaws.com/Prod/v1/api/Token";
