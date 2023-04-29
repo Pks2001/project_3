@@ -1,8 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-// import 'package:untitled/firebase_auth.dart';
-// import 'package:untitled/signup.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 
 class MyLogin extends StatefulWidget {
@@ -34,7 +32,6 @@ class _MyLoginState extends State<MyLogin> {
                   ),
                 )
             ),
-
             Positioned(
                 top: -50,
                 left: -50,
@@ -72,7 +69,7 @@ class _MyLoginState extends State<MyLogin> {
                       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                       width: MediaQuery.of(context).size.width*0.8,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
+                        borderRadius: BorderRadius.circular(30),
 
                       ),
 
@@ -112,25 +109,36 @@ class _MyLoginState extends State<MyLogin> {
                   TextButton(
                       onPressed: () async {
                         // Get the email and password from the text fields
-                        String username = usernameController.text.trim();
-                        String password = passwordController.text.trim();
-
-                        // Send a POST request to the API endpoint with the email and password
+                        String user = usernameController.text.trim();
+                        String pass = passwordController.text.trim();
                         String apiUrl = "https://r9n3k67qqg.execute-api.ap-south-1.amazonaws.com/Prod/v1/api/Token";
                         Map<String, String> headers = {"Content-type": "application/json"};
-                        String json = '{"username": "$username", "password": "$password"}';
+                        String json = '{"username": "$user", "password": "$pass"}';
                         http.Response response = await http.post(Uri.parse(apiUrl), headers: headers, body: json);
-
-                        // Check the response from the API
                         if (response.statusCode == 200) {
-                          // The user is authenticated
-                          print("User authenticated!");
+                          // User authenticated massage
+                          Fluttertoast.showToast(
+                              msg: "User Authenticated",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.CENTER,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.grey,
+                              textColor: Colors.white,
+                              fontSize: 16.0
+                          );
                         } else {
-                          // There was an error with the API
-                          print("Error: ${response.reasonPhrase}");
+                          // massage of invalid tests
+                          Fluttertoast.showToast(
+                              msg: "Invalid user, please check again",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.CENTER,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.grey,
+                              textColor: Colors.white,
+                              fontSize: 16.0
+                          );
                         }
                       },
-
                       child:Container(
                         height: 50,
                         width: MediaQuery.of(context).size.width*0.8,
