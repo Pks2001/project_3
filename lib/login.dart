@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
@@ -56,7 +58,7 @@ class _MyLoginState extends State<MyLogin> {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       image: DecorationImage(
-                        image: AssetImage('assets/images/getslogin.png'),
+                        image: AssetImage('assets/images/logo.png'),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -115,6 +117,7 @@ class _MyLoginState extends State<MyLogin> {
                         String json = '{"username": "$user", "password": "$pass"}';
                         http.Response response = await http.post(Uri.parse(apiUrl), headers: headers, body: json);
                         if (response.statusCode == 200) {
+                          log(response.body.toString());
                           // User authenticated massage
                           Fluttertoast.showToast(
                               msg: "User Authenticated",
